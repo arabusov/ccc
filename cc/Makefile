@@ -11,6 +11,7 @@ LDFLAGS	= -g -ggdb
 BINDIR	=$(PREFIX)/bin
 LIBDIR	=$(LIBPRE)/lib/bcc
 BCCDEFS	=-DLOCALPREFIX=$(LIBPRE) -DBINDIR=$(BINDIR) -DDEFARCH=0
+VERSION ?= $(shell git rev-parse --short HEAD)
 
 BCFLAGS=$(ANSI) $(CFLAGS) $(LDFLAGS) -DVERSION='"$(VERSION)"'
 
@@ -19,7 +20,15 @@ OBJS = bcc-cc1.o codefrag.o debug.o declare.o express.o exptree.o floatop.o \
 	loadexp.o longop.o output.o preproc.o preserve.o scan.o softop.o \
 	state.o table.o type.o assign.o	
 
-all:	bcc-cc1 bcc 
+all:	bcc-cc1 cc 
+
+TESTS = $(shell ls test/*.c)
+TESTO = $(patsubst %.c,%.o, $(TESTS))
+test: cc $(TESTO)
+test/%.o: test/%.c
+	./cc -c -o $@ $^
+testclean:
+	rm -f $(TESTO)
 
 install: all
 	install -d $(BINDIR)
@@ -30,15 +39,11 @@ install: all
 cc: bcc.c
 	$(CC) $(BCFLAGS) $(BCCDEFS) $^ -o $@
 
-ncc: bcc.c
-	$(CC) $(BCFLAGS) -DL_TREE -DDEFARCH=0 $^ -o $@
-
 bcc-cc1: $(OBJS)
 	$(CC) $(BCCARCH) $(LDFLAGS) $(OBJS) -o bcc-cc1
 
-clean realclean:
-	rm -f bcc bcc-cc1 ncc bcc09 ccc bcc.o $(OBJS)
-
+clean realclean: testclean
+	rm -f cc bcc-cc1 ncc bcc.o $(OBJS)
 
 $(OBJS):  bcc.h align.h const.h types.h \
           byteord.h condcode.h gencode.h \
