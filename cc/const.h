@@ -50,22 +50,6 @@ typedef long no_hope;
 #endif
 #endif
 
-#ifdef MC6809
-# define DYNAMIC_LONG_ORDER 0	/* have to define it so it works in #if's */
-# define OP1			/* logical operators only use 1 byte */
-# define POSINDEPENDENT		/* position indep code can (also) be gen */
-#endif
-
-/* switches for source and target operating system dependencies */
-
-/*#define SOS_EDOS*/		/* source O/S is EDOS */
-/*#define SOS_MSDOS*/		/* source O/S is MSDOS */
-/*#define TOS_EDOS*/		/* target O/S is EDOS */
-
-#ifdef MSDOS
-#define SOS_MSDOS
-#endif
-
 /* switches for source machine dependencies */
 
 /* Unportable alignment needed for specific compilers */

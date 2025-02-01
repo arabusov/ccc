@@ -8,7 +8,6 @@
  *       Personality flags are:
  *
  *	-Mn	Normal ELKS
- *	-Md	MSDOS
  *	-Ms	PC Standalone.
  *	-Ml	i386 Linux
  *	-M8	CvW's c386
@@ -18,9 +17,7 @@
 #include <stdio.h>
 #ifdef __STDC__
 #include <stdlib.h>
-#ifndef MSDOS
 #include <unistd.h>
-#endif
 #endif
 #include <string.h>
 #include <memory.h>
@@ -28,24 +25,10 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifndef MSDOS
 #include <sys/wait.h>
 #include <signal.h>
-#endif
 
-#ifdef MSDOS
-#define LOCALPREFIX     /linux86
-#define EXESUF		".exe"
-#define R_OK	4		/* Test for read permission.  */
-#define W_OK	2		/* Test for write permission.  */
-#define X_OK	1		/* Test for execute permission.	 */
-#define F_OK	0		/* Test for existence.	*/
-#define L_TREE	1		/* Use different tree style */
-#define DEFARCH 0		/* Default to 8086 code */
-#define VERSION	"MSDOS Compile"
-#else
 #define EXESUF
-#endif
 
 #define AS	"as" EXESUF
 #define LD	"ld" EXESUF
@@ -121,11 +104,7 @@ int file_count = 0;
 int dyn_count = 0;
 int error_count = 0;
 char * progname = "C";
-#ifdef MSDOS
-char * tmpdir = "";
-#else
 char * tmpdir = "/tmp/";
-#endif
 
 int main P((int argc, char **argv));
 void getargs P((int argc, char **argv));
@@ -658,11 +637,7 @@ int use_o;
    else
    {
       char buf[16];
-#ifdef MSDOS
-      sprintf(buf, "$$%05d$", dyn_count++);
-#else
       sprintf(buf, "$$%04d%05d", dyn_count++, getpid());
-#endif
       file->file = catstr(tmpdir, buf);
    }
 
@@ -681,11 +656,7 @@ run_unlink()
    {
       char buf[16];
       char * p;
-#ifdef MSDOS
-      sprintf(buf, "$$%05d$", i);
-#else
       sprintf(buf, "$$%04d%05d", i, getpid());
-#endif
       p = catstr(tmpdir, buf);
       if (opt_v>1)
 	 fprintf(stderr, "rm %s\n", p);
@@ -902,12 +873,6 @@ char ** argv;
 
    add_prefix(getenv("BCC_EXEC_PREFIX"));
 
-#ifdef MC6809
-   if (opt_M==0) opt_M = '9';
-#endif
-#ifdef MSDOS
-   if (opt_M==0) opt_M = 'd';
-#endif
    if (opt_M==0) opt_M = (opt_arch==1 ?'l':'n');
    switch(opt_M)
    {
@@ -938,14 +903,6 @@ char ** argv;
    case 's': 		/* Standalone 8086 */
       prepend_option("-D__STANDALONE__", 'p');
       libc="-lc_s";
-      break;
-   case 'd': 		/* DOS COM file */
-      prepend_option("-D__MSDOS__", 'p');
-      if (do_link) {
-	 libc="-ldos";
-	 append_option("-d", 'l');
-	 append_option("-T100", 'l');
-      }
       break;
    case 'l': 		/* 386 Linux a.out */
       opt_arch=1;
@@ -1125,23 +1082,6 @@ char * str;
 }
 
 #ifdef L_TREE
-#ifdef MSDOS
-void reset_localprefix()
-{
-   char *ptr, *temp;
-
-   temp = copystr(progname);
-   if( (ptr = strrchr(temp, '\\')) != 0
-         && temp<ptr-4 && strncmp(ptr-4, "\\BIN", 4) == 0 )
-   {
-      ptr[-4] = 0;
-      localprefix = temp;
-   }
-   else
-      free(temp);
-}
-#else
-
 void reset_localprefix()
 {
    char *ptr, *temp;
@@ -1199,7 +1139,6 @@ void reset_localprefix()
       free(temp);
 }
 #endif
-#endif
 
 
 void
@@ -1214,9 +1153,7 @@ static char ** minienviron[] = {
 };
 #endif
    int i, status;
-#ifndef MSDOS
    void *oqsig, *oisig, *otsig, *ocsig;
-#endif
 
 
    if (opt_v)
@@ -1228,13 +1165,6 @@ static char ** minienviron[] = {
       if (opt_v>2) return;
    }
 
-#ifdef MSDOS
-   status = spawnv(0, command.fullpath, command.arglist);
-   if (status<0)
-   {
-      fprintf(stderr, "Unable to execute %s\n", command.fullpath);
-   }
-#else
    oqsig = signal(SIGQUIT, SIG_IGN);
    oisig = signal(SIGINT,  SIG_IGN);
    otsig = signal(SIGTERM,  SIG_IGN);
@@ -1273,7 +1203,6 @@ static char ** minienviron[] = {
    (void) signal(SIGINT,  oisig);
    (void) signal(SIGTERM, otsig);
    (void) signal(SIGCHLD, ocsig);
-#endif
    if (status)
    {
       if (file) file->filetype = '~';
