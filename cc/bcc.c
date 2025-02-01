@@ -556,8 +556,9 @@ command_reset()
    command.arglist = xalloc(command.maxargs*sizeof(char**));
    command.arglist[0] = copystr(command.cmd);
 
-   if (command.fullpath) free(command.fullpath);
-   command.fullpath = 0;
+   if (command.fullpath)
+           free(command.fullpath);
+   command.fullpath = NULL;
 
    /* Search for the exe, nb as this will probably be called from 'make'
     * there's not much point saving this.

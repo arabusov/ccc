@@ -3,7 +3,7 @@
 # $Id$
 #
 
-PREFIX=/usr
+PREFIX ?= ./
 LIBPRE=$(PREFIX)
 
 CFLAGS	=-O -g -ggdb
@@ -22,10 +22,10 @@ OBJS = bcc-cc1.o codefrag.o debug.o declare.o express.o exptree.o floatop.o \
 
 all:	bcc-cc1 cc 
 
-TESTS = $(shell ls test/*.c)
-TESTO = $(patsubst %.c,%.o, $(TESTS))
+TESTS = $(shell ls test/*.i)
+TESTO = $(patsubst %.i,%.o, $(TESTS))
 test: cc $(TESTO)
-test/%.o: test/%.c
+test/%.o: test/%.i
 	./cc -c -o $@ $^
 testclean:
 	rm -f $(TESTO)
@@ -43,7 +43,7 @@ bcc-cc1: $(OBJS)
 	$(CC) $(BCCARCH) $(LDFLAGS) $(OBJS) -o bcc-cc1
 
 clean realclean: testclean
-	rm -f cc bcc-cc1 ncc bcc.o $(OBJS)
+	rm -f cc bcc-cc1 bcc.o $(OBJS)
 
 $(OBJS):  bcc.h align.h const.h types.h \
           byteord.h condcode.h gencode.h \
