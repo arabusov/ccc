@@ -24,7 +24,7 @@ all:	bcc-cc1 cc
 
 TESTS = $(shell ls test/*.i)
 TESTO = $(patsubst %.i,%.o, $(TESTS))
-test: cc $(TESTO)
+test: all $(TESTO)
 test/%.o: test/%.i
 	./cc -c -o $@ $^
 testclean:
