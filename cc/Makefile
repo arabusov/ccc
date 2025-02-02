@@ -22,13 +22,17 @@ OBJS = bcc-cc1.o codefrag.o debug.o declare.o express.o exptree.o floatop.o \
 
 all:	bcc-cc1 cc 
 
-TESTS = $(shell ls test/*.i)
-TESTO = $(patsubst %.i,%.o, $(TESTS))
-test: all $(TESTO)
+TEST = $(shell ls test/*.i)
+TESTO = $(patsubst %.i,%.o, $(TEST))
+TESTASM = $(patsubst %.i,%.asm, $(TEST))
+test: all $(TESTASM) $(TESTO)
+test/%.asm: test/%.i
+	-./bcc-cc1 -0 -c $^ &> $@
 test/%.o: test/%.i
 	./cc -c -o $@ $^
+
 testclean:
-	rm -f $(TESTO)
+	rm -f $(TESTO) $(TESTASM)
 
 install: all
 	install -d $(BINDIR)

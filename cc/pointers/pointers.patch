@@ -1,0 +1,13 @@
+diff --git a/cc/type.c b/cc/type.c
+index 10db803..6711ccc 100644
+--- a/cc/type.c
++++ b/cc/type.c
+@@ -17,7 +17,7 @@ PUBLIC uoffset_T ctypesize = 1;
+ PUBLIC uoffset_T dtypesize = 8;
+ PUBLIC uoffset_T ftypesize = 0;
+ PUBLIC uoffset_T itypesize = 2;
+-PUBLIC uoffset_T ptypesize = 2;
++PUBLIC uoffset_T ptypesize = 4;
+ PUBLIC uoffset_T stypesize = 2;
+ 
+ PRIVATE char skey0;
