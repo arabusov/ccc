@@ -9,12 +9,10 @@
 /* Ansi C has certain guarentees ... except under MSdross :-( */
 
 #ifdef __STDC__
-#ifndef MSDOS
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
-#endif
 
 #define P(x)	x
 
@@ -26,7 +24,7 @@
 #include "types.h"
 #include "proto.h"
 
-#if !defined(__STDC__) || defined(MSDOS)
+#if !defined(__STDC__)
 #include "sysproto.h"
 #endif
 
