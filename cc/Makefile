@@ -19,13 +19,14 @@ OBJS = bcc-cc1.o codefrag.o debug.o declare.o express.o exptree.o floatop.o \
 	function.o gencode.o genloads.o glogcode.o hardop.o input.o label.o \
 	loadexp.o longop.o output.o preproc.o preserve.o scan.o softop.o \
 	state.o table.o type.o assign.o	
-
 all:	bcc-cc1 cc 
+.PHONY: all
 
 TEST = $(shell ls test/*.i)
 TESTO = $(patsubst %.i,%.o, $(TEST))
 TESTASM = $(patsubst %.i,%.asm, $(TEST))
 test: all $(TESTASM) $(TESTO)
+.PHONY: test
 test/%.asm: test/%.i
 	-./bcc-cc1 -0 -c $^ &> $@
 test/%.o: test/%.i
@@ -48,7 +49,7 @@ bcc-cc1: $(OBJS)
 
 clean realclean: testclean
 	rm -f cc bcc-cc1 bcc.o $(OBJS)
-
+.PHONY: clean realclean testclean
 $(OBJS):  bcc.h align.h const.h types.h \
           byteord.h condcode.h gencode.h \
 	  input.h label.h os.h output.h \
