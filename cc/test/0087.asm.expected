@@ -1,0 +1,29 @@
+!BCC_EOS
+!BCC_EOS
+export	_foo
+_foo:
+push	bp
+mov	bp,sp
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+dec	sp
+dec	sp
+mov	bx,#_foo
+mov	-2[bp],bx
+!BCC_EOS
+call	-2[bp]
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

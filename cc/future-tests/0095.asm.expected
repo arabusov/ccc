@@ -1,0 +1,43 @@
+!BCC_EOS
+.data
+export	_x
+_x:
+.word	3
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+.text
+export	_foo
+_foo:
+push	bp
+mov	bp,sp
+fail! 0095.i:10.14: error: invalid lvalue
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+export	_main
+_main:
+push	bp
+mov	bp,sp
+mov	ax,[_x]
+cmp	ax,*3
+je  	.1
+.2:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+mov	[_x],ax
+!BCC_EOS
+mov	ax,[_x]
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+.fail	1 errors detected
+
+! 1 errors detected

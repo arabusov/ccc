@@ -1,0 +1,23 @@
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+add	sp,*-$20
+jmp .1
+.2:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

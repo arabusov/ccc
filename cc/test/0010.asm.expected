@@ -1,0 +1,34 @@
+export	_main
+_main:
+push	bp
+mov	bp,sp
+.FFFF:
+..FFFF	=	-2
+add	sp,#..FFFE+2
+jmp .FFFE
+!BCC_EOS
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.FFFD:
+..FFFD	=	-2
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.FFFE:
+..FFFE	=	-2
+.FFFC:
+..FFFC	=	-2
+add	sp,#..FFFD+2
+jmp	.FFFD
+!BCC_EOS
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

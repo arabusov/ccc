@@ -1,0 +1,95 @@
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+.data
+export	_v
+_v:
+.word	1
+.word	2
+.word	3
+.word	4
+fail! 0050.i:16.29: error: too many initializers
+fail! 0050.i:16.29: error: need '}'
+.blkb	$FFFFFFFFFFFFFFFE
+.blkb	4
+fail! 0050.i:16.29: error: need '}'
+!BCC_EOS
+fail! 0050.i:16.29: error: need ';'
+fail! 0050.i:16.29: error: need variable name
+!BCC_EOS
+fail! 0050.i:16.30: error: need ';'
+fail! 0050.i:16.30: error: need variable name
+!BCC_EOS
+fail! 0050.i:16.31: error: need ';'
+fail! 0050.i:16.31: error: need variable name
+!BCC_EOS
+.text
+export	_main
+_main:
+push	bp
+mov	bp,sp
+mov	ax,[_v]
+cmp	ax,*1
+je  	.1
+.2:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.1:
+mov	ax,[_v+2]
+cmp	ax,*2
+je  	.3
+.4:
+mov	ax,*2
+pop	bp
+ret
+!BCC_EOS
+.3:
+mov	ax,[_v]
+cmp	ax,*3
+jne 	.6
+.7:
+mov	ax,[_v]
+cmp	ax,*3
+je  	.5
+.6:
+mov	ax,*3
+pop	bp
+ret
+!BCC_EOS
+.5:
+mov	ax,[_v+6]
+cmp	ax,*4
+je  	.8
+.9:
+mov	ax,*4
+pop	bp
+ret
+!BCC_EOS
+.8:
+mov	ax,[_v+8]
+cmp	ax,*5
+je  	.A
+.B:
+mov	ax,*5
+pop	bp
+ret
+!BCC_EOS
+.A:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+.fail	9 errors detected
+
+! 9 errors detected

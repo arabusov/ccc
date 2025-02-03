@@ -1,0 +1,85 @@
+export	_main
+_main:
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+push	bp
+mov	bp,sp
+add	sp,*-8
+xor	ax,ax
+mov	-6[bp],ax
+!BCC_EOS
+mov	ax,*2
+mov	-2[bp],ax
+!BCC_EOS
+jmp .2
+.3:
+mov	ax,*2
+mov	-4[bp],ax
+!BCC_EOS
+mov	ax,*1
+mov	-8[bp],ax
+!BCC_EOS
+jmp .5
+.6:
+mov	ax,-2[bp]
+mov	bx,-4[bp]
+call	imod
+test	ax,ax
+jne 	.7
+.8:
+xor	ax,ax
+mov	-8[bp],ax
+!BCC_EOS
+.7:
+mov	ax,-4[bp]
+inc	ax
+mov	-4[bp],ax
+!BCC_EOS
+.5:
+mov	ax,-4[bp]
+mov	cx,-4[bp]
+imul	cx
+cmp	ax,-2[bp]
+jle	.6
+.9:
+.4:
+mov	ax,-2[bp]
+inc	ax
+mov	-2[bp],ax
+!BCC_EOS
+mov	ax,-8[bp]
+test	ax,ax
+je  	.A
+.B:
+mov	ax,-6[bp]
+inc	ax
+mov	-6[bp],ax
+!BCC_EOS
+.A:
+.2:
+mov	ax,-2[bp]
+cmp	ax,#$1388
+jl 	.3
+.C:
+.1:
+mov	ax,-6[bp]
+cmp	ax,#$29D
+je  	.D
+.E:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.D:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

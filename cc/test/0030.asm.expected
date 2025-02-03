@@ -1,0 +1,74 @@
+export	_f
+_f:
+push	bp
+mov	bp,sp
+mov	ax,*$64
+pop	bp
+ret
+!BCC_EOS
+export	_main
+_main:
+push	bp
+mov	bp,sp
+call	_f
+cmp	ax,#$3E8
+jle 	.1
+.2:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.1:
+call	_f
+cmp	ax,#$3E8
+jl  	.3
+.4:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.3:
+call	_f
+cmp	ax,#$3E8
+jle 	.5
+.6:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.5:
+call	_f
+cmp	ax,#$3E8
+jl  	.7
+.8:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.7:
+call	_f
+cmp	ax,#$3E8
+jne 	.9
+.A:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.9:
+call	_f
+cmp	ax,*$64
+je  	.B
+.C:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.B:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

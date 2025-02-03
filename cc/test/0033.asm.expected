@@ -1,0 +1,149 @@
+!BCC_EOS
+export	_effect
+_effect:
+push	bp
+mov	bp,sp
+mov	ax,*1
+mov	[_g],ax
+!BCC_EOS
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+dec	sp
+dec	sp
+xor	ax,ax
+mov	[_g],ax
+!BCC_EOS
+xor	ax,ax
+mov	-2[bp],ax
+!BCC_EOS
+mov	ax,-2[bp]
+test	ax,ax
+je  	.1
+.3:
+call	_effect
+test	ax,ax
+je  	.1
+.2:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.1:
+mov	ax,[_g]
+test	ax,ax
+je  	.4
+.5:
+mov	ax,*2
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.4:
+mov	ax,*1
+mov	-2[bp],ax
+!BCC_EOS
+mov	ax,-2[bp]
+test	ax,ax
+je  	.6
+.8:
+call	_effect
+test	ax,ax
+je  	.6
+.7:
+mov	ax,[_g]
+cmp	ax,*1
+je  	.9
+.A:
+mov	ax,*3
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.9:
+jmp .B
+.6:
+mov	ax,*4
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.B:
+xor	ax,ax
+mov	[_g],ax
+!BCC_EOS
+mov	ax,*1
+mov	-2[bp],ax
+!BCC_EOS
+mov	ax,-2[bp]
+test	ax,ax
+jne 	.D
+.E:
+call	_effect
+test	ax,ax
+je  	.C
+.D:
+mov	ax,[_g]
+test	ax,ax
+je  	.F
+.10:
+mov	ax,*5
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.F:
+jmp .11
+.C:
+mov	ax,*6
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.11:
+xor	ax,ax
+mov	-2[bp],ax
+!BCC_EOS
+mov	ax,-2[bp]
+test	ax,ax
+jne 	.13
+.14:
+call	_effect
+test	ax,ax
+je  	.12
+.13:
+mov	ax,[_g]
+cmp	ax,*1
+je  	.15
+.16:
+mov	ax,*7
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.15:
+jmp .17
+.12:
+mov	ax,*8
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.17:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+.comm	_g,2
+
+! 0 errors detected

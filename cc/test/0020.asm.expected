@@ -1,0 +1,26 @@
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+add	sp,*-6
+xor	ax,ax
+mov	-2[bp],ax
+!BCC_EOS
+lea	bx,-2[bp]
+mov	-4[bp],bx
+!BCC_EOS
+lea	bx,-4[bp]
+mov	-6[bp],bx
+!BCC_EOS
+mov	bx,-6[bp]
+mov	bx,[bx]
+mov	ax,[bx]
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

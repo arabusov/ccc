@@ -1,0 +1,39 @@
+!BCC_EOS
+!BCC_EOS
+fail! 0099.i:5.13: error: need ')'
+_vecresize:
+fail! 0099.i:5.17: error: v not in argument list
+fail! 0099.i:5.21: error: need variable name
+fail! 0099.i:5.25: error:  not in argument list
+!BCC_EOS
+fail! 0099.i:5.25: error: need ';'
+fail! 0099.i:5.25: error: need '{'
+push	bp
+mov	bp,sp
+fail! 0099.i:5.26: error: cap undeclared
+!BCC_EOS
+fail! 0099.i:5.26: error: need ';'
+fail! 0099.i:5.26: error: bad expression
+!BCC_EOS
+fail! 0099.i:6.1: error: need ';'
+pop	bp
+ret
+!BCC_EOS
+fail! 0099.i:10.3: error: bad expression
+!BCC_EOS
+fail! 0099.i:10.8: error: need ';'
+call	_main
+!BCC_EOS
+fail! 0099.i:11.1: error: need ';'
+fail! 0099.i:12.10: error: compiler bug? - attempting to load non-scalar non-pointer
+pop	bp
+ret
+!BCC_EOS
+fail! 0099.i:eof: error: need '}'
+.data
+.bss
+.comm	_v,2
+.comm	_cap,2
+.fail	15 errors detected
+
+! 15 errors detected

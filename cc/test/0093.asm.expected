@@ -1,0 +1,28 @@
+.data
+export	_a
+_a:
+.word	1
+.word	2
+.word	3
+.word	4
+!BCC_EOS
+.text
+export	_main
+_main:
+push	bp
+mov	bp,sp
+jmp .1
+.2:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

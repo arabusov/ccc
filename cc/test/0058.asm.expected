@@ -1,0 +1,100 @@
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+dec	sp
+dec	sp
+mov	bx,#.1
+mov	-2[bp],bx
+!BCC_EOS
+mov	bx,-2[bp]
+mov	al,[bx]
+cmp	al,*$61
+je  	.2
+.3:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.2:
+mov	bx,-2[bp]
+mov	al,1[bx]
+cmp	al,*$62
+je  	.4
+.5:
+mov	ax,*2
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.4:
+mov	bx,-2[bp]
+mov	al,2[bx]
+cmp	al,*$63
+je  	.6
+.7:
+mov	ax,*3
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.6:
+mov	bx,-2[bp]
+mov	al,3[bx]
+cmp	al,*$64
+je  	.8
+.9:
+mov	ax,*4
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.8:
+mov	bx,-2[bp]
+mov	al,4[bx]
+cmp	al,*$65
+je  	.A
+.B:
+mov	ax,*5
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.A:
+mov	bx,-2[bp]
+mov	al,5[bx]
+cmp	al,*$66
+je  	.C
+.D:
+mov	ax,*6
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.C:
+mov	bx,-2[bp]
+mov	al,6[bx]
+test	al,al
+je  	.E
+.F:
+mov	ax,*7
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.E:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.1:
+.10:
+.ascii	"abcdef"
+.byte	0
+.bss
+
+! 0 errors detected

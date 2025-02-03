@@ -1,0 +1,62 @@
+fail! 0078.i:2.7: error: need ')'
+export	_f1
+_f1:
+fail! 0078.i:2.11: error: p not in argument list
+!BCC_EOS
+fail! 0078.i:2.11: error: need ';'
+fail! 0078.i:2.11: error: need '{'
+push	bp
+mov	bp,sp
+fail! 0078.i:2.11: error: bad expression
+!BCC_EOS
+fail! 0078.i:3.1: error: need ';'
+mov	bx,[_p]
+mov	al,[bx]
+xor	ah,ah
+inc	ax
+pop	bp
+ret
+!BCC_EOS
+fail! 0078.i:7.3: error: bad expression
+!BCC_EOS
+fail! 0078.i:8.4: error: need ';'
+call	_main
+!BCC_EOS
+fail! 0078.i:9.1: error: need ';'
+dec	sp
+mov	al,*1
+mov	-1[bp],al
+!BCC_EOS
+!BCC_EOS
+fail! 0078.i:12.12: error: need ')'
+fail! 0078.i:12.12: error: illegal non-external function
+fail! 0078.i:12.15: error: need variable name
+!BCC_EOS
+add	sp,#-$7D3
+lea	bx,-1[bp]
+push	bx
+call	_f1
+inc	sp
+inc	sp
+cmp	ax,*2
+je  	.1
+.2:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+fail! 0078.i:eof: error: need '}'
+! Register BX used in function f1
+.data
+.bss
+.comm	_p,2
+.fail	13 errors detected
+
+! 13 errors detected

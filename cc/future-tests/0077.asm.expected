@@ -1,0 +1,103 @@
+fail! 0077.i:2.7: error: need ')'
+export	_foo
+_foo:
+fail! 0077.i:2.15: error: x not in argument list
+!BCC_EOS
+fail! 0077.i:2.15: error: need ';'
+fail! 0077.i:2.15: error: need '{'
+push	bp
+mov	bp,sp
+fail! 0077.i:2.15: error: bad expression
+!BCC_EOS
+fail! 0077.i:3.1: error: need ';'
+!BCC_EOS
+!BCC_EOS
+add	sp,#-$CA
+mov	ax,#$7D0
+mov	-$C8[bp],ax
+!BCC_EOS
+mov	ax,[_x]
+cmp	ax,#$3E8
+je  	.1
+.2:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.1:
+mov	bx,#_x
+mov	-$CA[bp],bx
+!BCC_EOS
+mov	bx,-$CA[bp]
+mov	bx,[bx]
+cmp	bx,#$3E8
+je  	.3
+.4:
+mov	ax,*2
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.3:
+lea	bx,-$C8[bp]
+mov	-$CA[bp],bx
+!BCC_EOS
+mov	bx,-$CA[bp]
+mov	bx,[bx]
+cmp	bx,#$7D0
+je  	.5
+.6:
+mov	ax,*3
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.5:
+.8:
+mov	ax,*4
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.7:
+.A:
+mov	ax,*5
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.9:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+fail! 0077.i:41.3: error: bad expression
+!BCC_EOS
+fail! 0077.i:42.4: error: need ';'
+call	_main
+!BCC_EOS
+fail! 0077.i:43.1: error: need ';'
+!BCC_EOS
+add	sp,#-$C8
+mov	ax,#$3E8
+mov	-$C8[bp],ax
+!BCC_EOS
+lea	bx,-$C8[bp]
+push	bx
+call	_foo
+inc	sp
+inc	sp
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+fail! 0077.i:eof: error: need '}'
+! Register BX used in function foo
+.data
+.bss
+.comm	_x,$C8
+.fail	10 errors detected
+
+! 10 errors detected

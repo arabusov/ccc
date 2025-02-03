@@ -1,0 +1,25 @@
+fail! 0060.i:1.1: error: need variable name
+!BCC_EOS
+fail! 0060.i:1.2: error: need ';'
+fail! 0060.i:1.2: error: need variable name
+!BCC_EOS
+fail! 0060.i:1.7: error: need ';'
+!BCC_EOS
+fail! 0060.i:1.15: error: need ';'
+!BCC_EOS
+fail! 0060.i:3.3: error: need ';'
+export	_main
+_main:
+push	bp
+mov	bp,sp
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+.comm	_comment,2
+.comm	_line,2
+.fail	6 errors detected
+
+! 6 errors detected

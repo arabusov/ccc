@@ -1,0 +1,18 @@
+.data
+export	_x
+_x:
+.word	0
+!BCC_EOS
+.text
+export	_main
+_main:
+push	bp
+mov	bp,sp
+mov	ax,[_x]
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

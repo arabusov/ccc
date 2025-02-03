@@ -1,0 +1,52 @@
+export	_zero
+_zero:
+push	bp
+mov	bp,sp
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+!BCC_EOS
+.data
+export	_s
+_s:
+fail! 0089.i:10.15: error: invalid lvalue
+.word	0
+!BCC_EOS
+.text
+export	_anon
+_anon:
+push	bp
+mov	bp,sp
+mov	ax,#_s
+pop	bp
+ret
+!BCC_EOS
+!BCC_EOS
+export	_go
+_go:
+push	bp
+mov	bp,sp
+fail! 0089.i:23.14: error: invalid lvalue
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+export	_main
+_main:
+push	bp
+mov	bp,sp
+call	_go
+mov	bx,ax
+call	bx
+mov	bx,ax
+call	[bx]
+pop	bp
+ret
+!BCC_EOS
+! Register BX used in function main
+.data
+.bss
+.fail	2 errors detected
+
+! 2 errors detected

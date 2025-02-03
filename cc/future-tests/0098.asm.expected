@@ -1,0 +1,19 @@
+export	_main
+_main:
+push	bp
+mov	bp,sp
+fail! 0098.i:4.13: error: L undeclared
+mov	ax,[_L]
+pop	bp
+ret
+!BCC_EOS
+fail! 0098.i:4.13: error: need ';'
+!BCC_EOS
+pop	bp
+ret
+.data
+.bss
+.comm	_L,2
+.fail	2 errors detected
+
+! 2 errors detected

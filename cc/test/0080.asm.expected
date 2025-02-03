@@ -1,0 +1,21 @@
+export	_voidfn
+_voidfn:
+push	bp
+mov	bp,sp
+pop	bp
+ret
+!BCC_EOS
+export	_main
+_main:
+push	bp
+mov	bp,sp
+call	_voidfn
+!BCC_EOS
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

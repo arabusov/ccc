@@ -1,0 +1,57 @@
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+.data
+export	_s
+_s:
+fail! 0048.i:2.16: error: bad expression
+.word	0
+.blkb	2
+fail! 0048.i:2.17: error: need '}'
+!BCC_EOS
+fail! 0048.i:2.17: error: need ';'
+export	_b
+_b:
+.word	2
+fail! 0048.i:2.24: error: need variable name
+!BCC_EOS
+fail! 0048.i:2.25: error: need ';'
+export	_a
+_a:
+.word	1
+!BCC_EOS
+fail! 0048.i:2.30: error: need ';'
+fail! 0048.i:2.30: error: need variable name
+!BCC_EOS
+.text
+export	_main
+_main:
+push	bp
+mov	bp,sp
+mov	ax,[_s]
+cmp	ax,*1
+je  	.1
+.2:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.1:
+mov	ax,[_s+2]
+cmp	ax,*2
+je  	.3
+.4:
+mov	ax,*2
+pop	bp
+ret
+!BCC_EOS
+.3:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+.fail	7 errors detected
+
+! 7 errors detected

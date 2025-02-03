@@ -1,0 +1,27 @@
+.data
+export	_fptr
+_fptr:
+.word	0
+!BCC_EOS
+.text
+export	_main
+_main:
+push	bp
+mov	bp,sp
+mov	ax,[_fptr]
+test	ax,ax
+je  	.1
+.2:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

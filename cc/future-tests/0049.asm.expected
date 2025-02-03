@@ -1,0 +1,63 @@
+.data
+export	_x
+_x:
+.word	$A
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+export	_s
+_s:
+fail! 0049.i:4.16: error: bad expression
+.word	0
+.blkb	2
+fail! 0049.i:4.17: error: need '}'
+!BCC_EOS
+fail! 0049.i:4.17: error: need ';'
+export	_p
+_p:
+.word	_x
+fail! 0049.i:4.25: error: need variable name
+!BCC_EOS
+fail! 0049.i:4.26: error: need ';'
+export	_a
+_a:
+.word	1
+!BCC_EOS
+fail! 0049.i:4.31: error: need ';'
+fail! 0049.i:4.31: error: need variable name
+!BCC_EOS
+.text
+export	_main
+_main:
+push	bp
+mov	bp,sp
+mov	ax,[_s]
+cmp	ax,*1
+je  	.1
+.2:
+mov	ax,*1
+pop	bp
+ret
+!BCC_EOS
+.1:
+mov	bx,[_s+2]
+mov	bx,[bx]
+cmp	bx,*$A
+je  	.3
+.4:
+mov	ax,*2
+pop	bp
+ret
+!BCC_EOS
+.3:
+xor	ax,ax
+pop	bp
+ret
+!BCC_EOS
+! Register BX used in function main
+.data
+.bss
+.fail	7 errors detected
+
+! 7 errors detected

@@ -1,0 +1,41 @@
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+!BCC_EOS
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+add	sp,*-6
+mov	ax,*1
+mov	-6[bp],ax
+!BCC_EOS
+mov	ax,*2
+mov	-4[bp],ax
+!BCC_EOS
+mov	ax,*3
+mov	-2[bp],ax
+!BCC_EOS
+mov	ax,-6[bp]
+add	ax,-4[bp]
+add	ax,-2[bp]
+cmp	ax,*6
+je  	.1
+.2:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

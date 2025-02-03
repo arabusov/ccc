@@ -1,0 +1,41 @@
+fail! 0025.i:1.15: error: need ')'
+export	_strlen
+_strlen:
+fail! 0025.i:1.18: error: need variable name
+fail! 0025.i:1.19: error:  not in argument list
+!BCC_EOS
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+dec	sp
+dec	sp
+mov	bx,#.1
+mov	-2[bp],bx
+!BCC_EOS
+push	-2[bp]
+call	_strlen
+inc	sp
+inc	sp
+add	ax,*-5
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+! Register BX used in function main
+fail! 0025.i:eof: error: need '{'
+push	bp
+mov	bp,sp
+pop	bp
+ret
+fail! 0025.i:eof: error: need '}'
+.data
+.1:
+.2:
+.ascii	"hello"
+.byte	0
+.bss
+.fail	5 errors detected
+
+! 5 errors detected

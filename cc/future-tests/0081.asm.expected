@@ -1,0 +1,47 @@
+export	_main
+_main:
+fail! 0081.i:4.12: error: multiple types in declaration
+!BCC_EOS
+push	bp
+mov	bp,sp
+add	sp,*-4
+xor	ax,ax
+xor	bx,bx
+mov	-4[bp],ax
+mov	-2[bp],bx
+!BCC_EOS
+mov	ax,*1
+xor	bx,bx
+lea	di,-4[bp]
+call	laddl
+mov	-4[bp],ax
+mov	-2[bp],bx
+!BCC_EOS
+mov	ax,*1
+xor	bx,bx
+push	bx
+push	ax
+mov	ax,-4[bp]
+mov	bx,-2[bp]
+lea	di,-8[bp]
+call	lcmpl
+lea	sp,-4[bp]
+je  	.1
+.2:
+mov	ax,*1
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.1:
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+! Register BX used in function main
+.data
+.bss
+.fail	1 errors detected
+
+! 1 errors detected
