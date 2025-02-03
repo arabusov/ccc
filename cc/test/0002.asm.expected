@@ -1,0 +1,61 @@
+export	_memcpy
+_memcpy:
+!BCC_EOS
+!BCC_EOS
+push	bp
+mov	bp,sp
+jmp .2
+.3:
+!BCC_EOS
+.2:
+mov	bx,6[bp]
+inc	bx
+dec	bx
+mov	6[bp],bx
+mov	si,4[bp]
+inc	si
+dec	si
+mov	4[bp],si
+mov	al,[bx]
+mov	[si],al
+mov	ax,8[bp]
+dec	ax
+mov	8[bp],ax
+test	ax,ax
+jne	.3
+.4:
+.1:
+pop	bp
+ret
+.data
+export	_src
+_src:
+.word	1
+.word	2
+.word	3
+!BCC_EOS
+.text
+export	_main
+_main:
+!BCC_EOS
+push	bp
+mov	bp,sp
+add	sp,*-4
+mov	ax,*6
+push	ax
+mov	bx,#_src
+push	bx
+lea	bx,-3[bp]
+push	bx
+call	_memcpy
+add	sp,*6
+!BCC_EOS
+xor	ax,ax
+mov	sp,bp
+pop	bp
+ret
+!BCC_EOS
+.data
+.bss
+
+! 0 errors detected

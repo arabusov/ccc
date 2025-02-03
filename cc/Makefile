@@ -23,14 +23,12 @@ all:	bcc-cc1 cc
 .PHONY: all
 
 TEST = $(shell ls test/*.i)
-TESTO = $(patsubst %.i,%.o, $(TEST))
 TESTASM = $(patsubst %.i,%.asm, $(TEST))
-test: all $(TESTASM) $(TESTO)
+test: all $(TESTASM)
 .PHONY: test
-test/%.asm: test/%.i
-	-./bcc-cc1 -0 -c $^ &> $@
-test/%.o: test/%.i
-	./cc -c -o $@ $^
+test/%.asm: test/%.i# test/%.asm.expected
+	-./bcc-cc1 -0 -c $< &> $@
+	diff -w $@ $@.expected
 
 testclean:
 	rm -f $(TESTO) $(TESTASM)
